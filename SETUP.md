@@ -54,9 +54,9 @@ O projeto utiliza os seguintes AutoLoads (acessíveis globalmente):
 
 ```
 Boot (main.tscn)
-    ↓
+	↓
 Menu Principal
-    ↓
+	↓
 Novo Jogo → Mapa do Mundo
 ```
 

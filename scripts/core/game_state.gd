@@ -1,6 +1,5 @@
 # game_state.gd
 # Armazena o estado global do jogo
-class_name GameState
 extends Node
 
 # Dados do Jogador
@@ -63,6 +62,21 @@ var combat_state: Dictionary = {
 	"turn_count": 0,
 }
 
+# Sistema de Progressão de Tempo
+var time: Dictionary = {
+	"day": 1,
+	"hour": 8,
+	"minute": 0,
+	"season": "primavera"
+}
+
+# Facções e Reputação
+var reputation: Dictionary = {
+	"aldeia_das_aguas": 0,
+	"curupiras": 0,
+	"bandeirantes_fantasmas": 0
+}
+
 func _ready() -> void:
 	pass
 
@@ -110,6 +124,17 @@ func reset_game() -> void:
 		"in_combat": false,
 		"current_enemy": null,
 		"turn_count": 0,
+	}
+	time = {
+		"day": 1,
+		"hour": 8,
+		"minute": 0,
+		"season": "primavera"
+	}
+	reputation = {
+		"aldeia_das_aguas": 0,
+		"curupiras": 0,
+		"bandeirantes_fantasmas": 0
 	}
 
 func set_flag(flag_name: String, value: bool) -> void:

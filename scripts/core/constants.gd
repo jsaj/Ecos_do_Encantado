@@ -1,6 +1,5 @@
 # constants.gd
 # Constantes globais do jogo
-class_name Constants
 extends Node
 
 # Cenas

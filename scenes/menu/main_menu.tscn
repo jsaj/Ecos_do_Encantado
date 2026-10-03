@@ -1,66 +1,92 @@
-[gd_scene load_steps=2 format=3 uid="uid://d34w2k8j1bd9f"]
+[gd_scene load_steps=3 format=3 uid="uid://d34w2k8j1bd9f"]
 
 [ext_resource type="Script" path="res://scenes/menu/main_menu.gd" id="1_abc12"]
+[ext_resource type="Script" path="res://scripts/ui/scene_backdrop.gd" id="2_backdrop"]
 
 [node name="MainMenu" type="Control"]
 layout_mode = 3
-anchors_left = 0.0
-anchors_top = 0.0
-anchors_right = 1.0
-anchors_bottom = 1.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 script = ExtResource("1_abc12")
 
-[node name="ColorRect" type="ColorRect" parent="."]
+; Fundo do menu. Aponte texture_path no Inspector para usar sua imagem;
+; vazio = cor solta. dim_amount escurece o fundo para o texto ficar legível.
+[node name="Backdrop" type="TextureRect" parent="."]
 layout_mode = 1
-anchors_left = 0.0
-anchors_top = 0.0
-anchors_right = 1.0
-anchors_bottom = 1.0
-color = Color(0.05, 0.05, 0.1, 1)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.06, 0.09, 0.07, 1)
+script = ExtResource("2_backdrop")
+texture_path = ""
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
-anchors_left = 0.5
-anchors_top = 0.5
-anchors_right = 0.5
-anchors_bottom = 0.5
-offset_left = -150.0
-offset_top = -150.0
-offset_right = 150.0
-offset_bottom = 150.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 80.0
+offset_top = 200.0
+offset_right = -80.0
+offset_bottom = -200.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 30
 alignment = 1
 
 [node name="TitleLabel" type="Label" parent="VBoxContainer"]
 layout_mode = 2
+theme_override_colors/font_color = Color(0.8, 1.0, 0.82, 1)
+theme_override_font_sizes/font_size = 64
 text = "ECOS DO ENCANTADO"
-theme_override_font_sizes/font_size = 48
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="SubtitleLabel" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.5, 0.78, 0.55, 1)
+theme_override_font_sizes/font_size = 28
+text = "RPG Narrativo do Folclore Brasileiro"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer"]
+[node name="Spacer" type="Control" parent="VBoxContainer"]
+custom_minimum_size = Vector2(0, 60)
 layout_mode = 2
-theme_override_constants/margin_top = 40
 
 [node name="NewGameButton" type="Button" parent="VBoxContainer"]
+custom_minimum_size = Vector2(0, 110)
 layout_mode = 2
-size_flags_vertical = 3
+theme_override_font_sizes/font_size = 40
 text = "NOVO JOGO"
-theme_override_font_sizes/font_size = 32
 
 [node name="ContinueButton" type="Button" parent="VBoxContainer"]
+custom_minimum_size = Vector2(0, 110)
 layout_mode = 2
-size_flags_vertical = 3
+theme_override_font_sizes/font_size = 40
 text = "CONTINUAR"
-theme_override_font_sizes/font_size = 32
 
 [node name="SettingsButton" type="Button" parent="VBoxContainer"]
+custom_minimum_size = Vector2(0, 110)
 layout_mode = 2
-size_flags_vertical = 3
+theme_override_font_sizes/font_size = 40
 text = "CONFIGURAÇÕES"
-theme_override_font_sizes/font_size = 32
 
 [node name="QuitButton" type="Button" parent="VBoxContainer"]
+custom_minimum_size = Vector2(0, 110)
 layout_mode = 2
-size_flags_vertical = 3
+theme_override_font_sizes/font_size = 40
 text = "SAIR"
-theme_override_font_sizes/font_size = 32
+
+[node name="BattleButton" type="Button" parent="VBoxContainer"]
+custom_minimum_size = Vector2(0, 70)
+layout_mode = 2
+theme_override_font_sizes/font_size = 26
+text = "BATALHA (TESTE)"

@@ -1,6 +1,5 @@
 # game_manager.gd
 # Gerenciador central do jogo
-class_name GameManager
 extends Node
 
 signal game_started
@@ -43,7 +42,18 @@ func load_game() -> void:
 	SceneManager.load_scene("res://scenes/world/world_map.tscn")
 
 func quit_game() -> void:
+	game_ended.emit()
 	get_tree().quit()
 
 func go_to_menu() -> void:
 	SceneManager.load_scene("res://scenes/menu/main_menu.tscn")
+
+func advance_time(minutes: int) -> void:
+	GameState.time["minute"] += minutes
+	while GameState.time["minute"] >= 60:
+		GameState.time["minute"] -= 60
+		GameState.time["hour"] += 1
+		
+	while GameState.time["hour"] >= 24:
+		GameState.time["hour"] -= 24
+		GameState.time["day"] += 1

@@ -1,34 +1,71 @@
-[gd_scene load_steps=2 format=3 uid="uid://bk3w4j2l0cd5f"]
+[gd_scene load_steps=3 format=3 uid="uid://bk3w4j2l0cd5f"]
 
 [ext_resource type="Script" path="res://scenes/world/world_map.gd" id="1_abc12"]
+[ext_resource type="Script" path="res://scripts/ui/scene_backdrop.gd" id="2_backdrop"]
 
 [node name="WorldMap" type="Control"]
 layout_mode = 3
-anchors_left = 0.0
-anchors_top = 0.0
-anchors_right = 1.0
-anchors_bottom = 1.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 script = ExtResource("1_abc12")
 
-[node name="ColorRect" type="ColorRect" parent="."]
+; Fundo do mapa. Aponte texture_path no Inspector para usar sua imagem.
+[node name="Backdrop" type="TextureRect" parent="."]
 layout_mode = 1
-anchors_left = 0.0
-anchors_top = 0.0
-anchors_right = 1.0
-anchors_bottom = 1.0
-color = Color(0.2, 0.25, 0.2, 1)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.1, 0.16, 0.12, 1)
+script = ExtResource("2_backdrop")
+texture_path = ""
 
-[node name="Label" type="Label" parent="."]
+[node name="CenterContainer" type="CenterContainer" parent="."]
 layout_mode = 1
-anchors_left = 0.5
-anchors_top = 0.5
-anchors_right = 0.5
-anchors_bottom = 0.5
-offset_left = -200.0
-offset_top = -50.0
-offset_right = 200.0
-offset_bottom = 50.0
-text = "MAPA DO MUNDO
-(Implementação em FASE 12)"
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer"]
+layout_mode = 2
+theme_override_constants/separation = 30
+alignment = 1
+
+[node name="Title" type="Label" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.85, 0.95, 0.85, 1)
+theme_override_font_sizes/font_size = 56
+text = "MAPA DO MUNDO"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="Subtitle" type="Label" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.6, 0.8, 0.65, 1)
+theme_override_font_sizes/font_size = 32
+text = "(Implementação na FASE 12)"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Spacer" type="Control" parent="CenterContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+
+[node name="BtnTesteDialogo" type="Button" parent="CenterContainer/VBoxContainer"]
+custom_minimum_size = Vector2(360, 100)
+layout_mode = 2
+theme_override_font_sizes/font_size = 36
+text = "TESTAR DIÁLOGO"
+
+[node name="BtnVoltar" type="Button" parent="CenterContainer/VBoxContainer"]
+custom_minimum_size = Vector2(360, 100)
+layout_mode = 2
+theme_override_font_sizes/font_size = 36
+text = "VOLTAR AO MENU"

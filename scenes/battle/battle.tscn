@@ -1,0 +1,475 @@
+[gd_scene load_steps=13 format=3]
+
+[ext_resource type="Script" path="res://scripts/battle/battle.gd" id="1_battle"]
+[ext_resource type="Script" path="res://scripts/ui/battle_theme.gd" id="2_theme"]
+[ext_resource type="Script" path="res://scripts/ui/portrait_slot.gd" id="3_portrait"]
+[ext_resource type="Script" path="res://scripts/ui/status_bar.gd" id="4_status"]
+[ext_resource type="Script" path="res://scripts/ui/skill_tree.gd" id="5_skilltree"]
+[ext_resource type="Script" path="res://scripts/ui/combat_log.gd" id="6_log"]
+[ext_resource type="Script" path="res://scripts/ui/combat_menu.gd" id="7_menu"]
+[ext_resource type="Script" path="res://scripts/ui/battle_stage_art.gd" id="8_stageart"]
+
+[sub_resource type="StyleBoxFlat" id="StyleWoodFrame"]
+bg_color = Color(0.165, 0.11, 0.063, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0.541, 0.416, 0.208, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StylePanelInner"]
+bg_color = Color(0.169, 0.137, 0.094, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.353, 0.275, 0.149, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+content_margin_left = 8.0
+content_margin_top = 6.0
+content_margin_right = 8.0
+content_margin_bottom = 8.0
+
+[sub_resource type="StyleBoxFlat" id="StyleScene"]
+bg_color = Color(0.055, 0.098, 0.063, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleHeader"]
+bg_color = Color(0.145, 0.098, 0.051, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.353, 0.275, 0.149, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+content_margin_left = 6.0
+content_margin_top = 4.0
+content_margin_right = 6.0
+content_margin_bottom = 4.0
+
+[node name="BattleScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_battle")
+
+[node name="Root" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+process_mode = 3
+
+; Layout vertical da tela (viewport base 1080x1920), de cima para baixo:
+;   SettingsButton 70 | Stage 470 | Initiative 230 | BattleActionPanel 500
+;   | CombatLog 210 | CombatMenu 130 | Logo 60, com folga para o modo expand.
+; As secoes sao filhas do VBox "Root/Layout", nesta ordem.
+
+[node name="Backdrop" type="ColorRect" parent="Root"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.063, 0.055, 0.043, 1)
+
+[node name="Layout" type="VBoxContainer" parent="Root"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 10
+
+[node name="TopMargin" type="MarginContainer" parent="Root/Layout"]
+custom_minimum_size = Vector2(0, 72)
+layout_mode = 2
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 0
+
+[node name="SettingsButton" type="Button" parent="Root/Layout/TopMargin"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+tooltip_text = "Configurações"
+theme_override_font_sizes/font_size = 28
+text = "⚙"
+
+[node name="StageArea" type="PanelContainer" parent="Root/Layout"]
+custom_minimum_size = Vector2(0, 372)
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleWoodFrame")
+
+[node name="SceneFrame" type="PanelContainer" parent="Root/Layout/StageArea"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleScene")
+
+[node name="ScenePlaceholder" type="Control" parent="Root/Layout/StageArea/SceneFrame"]
+layout_mode = 2
+script = ExtResource("8_stageart")
+
+[node name="Battleground" type="Control" parent="Root/Layout/StageArea/SceneFrame"]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="HeroBody" type="TextureRect" parent="Root/Layout/StageArea/SceneFrame/Battleground"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -160.0
+offset_top = 80.0
+offset_right = 160.0
+offset_bottom = 400.0
+grow_horizontal = 2
+mouse_filter = 2
+expand_mode = 1
+stretch_mode = 5
+
+[node name="EnemyBody" type="TextureRect" parent="Root/Layout/StageArea/SceneFrame/Battleground"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -160.0
+offset_top = 80.0
+offset_right = 160.0
+offset_bottom = 400.0
+grow_horizontal = 2
+mouse_filter = 2
+expand_mode = 1
+stretch_mode = 5
+
+[node name="TurnBanner" type="PanelContainer" parent="Root/Layout/StageArea/SceneFrame/Battleground"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -180.0
+offset_top = -66.0
+offset_right = 180.0
+offset_bottom = -14.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_styles/panel = SubResource("StyleHeader")
+
+[node name="TurnIndicator" type="Label" parent="Root/Layout/StageArea/SceneFrame/Battleground/TurnBanner"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.878, 0.714, 0.29, 1)
+theme_override_font_sizes/font_size = 20
+text = "TURNO 3 — Caipora"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="InitiativePanel" type="PanelContainer" parent="Root/Layout"]
+custom_minimum_size = Vector2(0, 216)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleWoodFrame")
+
+[node name="Inner" type="VBoxContainer" parent="Root/Layout/InitiativePanel"]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="Header" type="Label" parent="Root/Layout/InitiativePanel/Inner"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.878, 0.714, 0.29, 1)
+theme_override_font_sizes/font_size = 20
+text = "Initiative"
+horizontal_alignment = 1
+
+[node name="Columns" type="HBoxContainer" parent="Root/Layout/InitiativePanel/Inner"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 10
+
+[node name="HeroColumn" type="PanelContainer" parent="Root/Layout/InitiativePanel/Inner/Columns"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StylePanelInner")
+
+[node name="Box" type="VBoxContainer" parent="Root/Layout/InitiativePanel/Inner/Columns/HeroColumn"]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="HeroRow" type="HBoxContainer" parent="Root/Layout/InitiativePanel/Inner/Columns/HeroColumn/Box"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 10
+
+[node name="HeroPortrait" type="PanelContainer" parent="Root/Layout/InitiativePanel/Inner/Columns/HeroColumn/Box/HeroRow"]
+unique_name_in_owner = true
+layout_mode = 2
+script = ExtResource("3_portrait")
+
+[node name="HeroStatus" type="VBoxContainer" parent="Root/Layout/InitiativePanel/Inner/Columns/HeroColumn/Box/HeroRow"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("4_status")
+title = "Caipora"
+
+[node name="TurnOrderPanel" type="PanelContainer" parent="Root/Layout/InitiativePanel/Inner/Columns"]
+custom_minimum_size = Vector2(70, 0)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StylePanelInner")
+
+[node name="TurnOrder" type="VBoxContainer" parent="Root/Layout/InitiativePanel/Inner/Columns/TurnOrderPanel"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/separation = 6
+alignment = 1
+
+[node name="EnemyColumn" type="PanelContainer" parent="Root/Layout/InitiativePanel/Inner/Columns"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StylePanelInner")
+
+[node name="Box" type="VBoxContainer" parent="Root/Layout/InitiativePanel/Inner/Columns/EnemyColumn"]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="EnemyRow" type="HBoxContainer" parent="Root/Layout/InitiativePanel/Inner/Columns/EnemyColumn/Box"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 10
+
+[node name="EnemyPortrait" type="PanelContainer" parent="Root/Layout/InitiativePanel/Inner/Columns/EnemyColumn/Box/EnemyRow"]
+unique_name_in_owner = true
+layout_mode = 2
+script = ExtResource("3_portrait")
+
+[node name="EnemyStatus" type="VBoxContainer" parent="Root/Layout/InitiativePanel/Inner/Columns/EnemyColumn/Box/EnemyRow"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("4_status")
+title = "Curupira"
+
+[node name="BattleActionPanel" type="PanelContainer" parent="Root/Layout"]
+custom_minimum_size = Vector2(0, 640)
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleWoodFrame")
+
+[node name="Inner" type="VBoxContainer" parent="Root/Layout/BattleActionPanel"]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="Title" type="Label" parent="Root/Layout/BattleActionPanel/Inner"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.878, 0.714, 0.29, 1)
+theme_override_font_sizes/font_size = 24
+text = "[ Battle Action Panel ]"
+horizontal_alignment = 1
+
+[node name="Sections" type="GridContainer" parent="Root/Layout/BattleActionPanel/Inner"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/h_separation = 10
+theme_override_constants/v_separation = 10
+columns = 2
+
+[node name="ActionsColumn" type="PanelContainer" parent="Root/Layout/BattleActionPanel/Inner/Sections"]
+custom_minimum_size = Vector2(340, 0)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StylePanelInner")
+
+[node name="Box" type="VBoxContainer" parent="Root/Layout/BattleActionPanel/Inner/Sections/ActionsColumn"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="Header" type="Label" parent="Root/Layout/BattleActionPanel/Inner/Sections/ActionsColumn/Box"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.878, 0.714, 0.29, 1)
+theme_override_font_sizes/font_size = 17
+text = "Ações do Personagem"
+horizontal_alignment = 1
+
+[node name="AttackButton" type="Button" parent="Root/Layout/BattleActionPanel/Inner/Sections/ActionsColumn/Box"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 72)
+layout_mode = 2
+tooltip_text = "Ataque básico"
+theme_override_font_sizes/font_size = 22
+text = "[Atacar]"
+
+[node name="InventoryHeader" type="Label" parent="Root/Layout/BattleActionPanel/Inner/Sections/ActionsColumn/Box"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.878, 0.714, 0.29, 1)
+theme_override_font_sizes/font_size = 17
+text = "Inventário de Combate"
+horizontal_alignment = 1
+
+[node name="InventorySlot" type="Button" parent="Root/Layout/BattleActionPanel/Inner/Sections/ActionsColumn/Box"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 72)
+layout_mode = 2
+size_flags_vertical = 3
+tooltip_text = "Equipar item"
+theme_override_font_sizes/font_size = 20
+text = "Equippable"
+
+[node name="SkillsColumn" type="PanelContainer" parent="Root/Layout/BattleActionPanel/Inner/Sections"]
+custom_minimum_size = Vector2(340, 0)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StylePanelInner")
+
+[node name="Box" type="VBoxContainer" parent="Root/Layout/BattleActionPanel/Inner/Sections/SkillsColumn"]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="Header" type="Label" parent="Root/Layout/BattleActionPanel/Inner/Sections/SkillsColumn/Box"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.878, 0.714, 0.29, 1)
+theme_override_font_sizes/font_size = 17
+text = "[Habilidades]"
+horizontal_alignment = 1
+
+[node name="SkillTree" type="VBoxContainer" parent="Root/Layout/BattleActionPanel/Inner/Sections/SkillsColumn/Box"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+script = ExtResource("5_skilltree")
+
+[node name="ItemsColumn" type="PanelContainer" parent="Root/Layout/BattleActionPanel/Inner/Sections"]
+custom_minimum_size = Vector2(340, 0)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StylePanelInner")
+
+[node name="Box" type="VBoxContainer" parent="Root/Layout/BattleActionPanel/Inner/Sections/ItemsColumn"]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="Header" type="Label" parent="Root/Layout/BattleActionPanel/Inner/Sections/ItemsColumn/Box"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.878, 0.714, 0.29, 1)
+theme_override_font_sizes/font_size = 17
+text = "[Inventário de Combate]"
+horizontal_alignment = 1
+
+[node name="EquippedList" type="VBoxContainer" parent="Root/Layout/BattleActionPanel/Inner/Sections/ItemsColumn/Box"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 8
+
+[node name="TargetColumn" type="PanelContainer" parent="Root/Layout/BattleActionPanel/Inner/Sections"]
+custom_minimum_size = Vector2(340, 0)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StylePanelInner")
+[node name="Box" type="VBoxContainer" parent="Root/Layout/BattleActionPanel/Inner/Sections/TargetColumn"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="Header" type="Label" parent="Root/Layout/BattleActionPanel/Inner/Sections/TargetColumn/Box"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.878, 0.714, 0.29, 1)
+theme_override_font_sizes/font_size = 17
+text = "Alvo e Status"
+horizontal_alignment = 1
+
+[node name="TargetRow" type="HBoxContainer" parent="Root/Layout/BattleActionPanel/Inner/Sections/TargetColumn/Box"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="TargetPortrait" type="PanelContainer" parent="Root/Layout/BattleActionPanel/Inner/Sections/TargetColumn/Box/TargetRow"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(72, 72)
+layout_mode = 2
+script = ExtResource("3_portrait")
+
+[node name="TargetName" type="Label" parent="Root/Layout/BattleActionPanel/Inner/Sections/TargetColumn/Box/TargetRow"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(0.91, 0.863, 0.753, 1)
+theme_override_font_sizes/font_size = 20
+text = "Curupira"
+vertical_alignment = 1
+
+[node name="StatusList" type="VBoxContainer" parent="Root/Layout/BattleActionPanel/Inner/Sections/TargetColumn/Box"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 8
+
+[node name="CombatLogPanel" type="PanelContainer" parent="Root/Layout"]
+custom_minimum_size = Vector2(0, 176)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleWoodFrame")
+
+[node name="CombatLog" type="ScrollContainer" parent="Root/Layout/CombatLogPanel"]
+unique_name_in_owner = true
+layout_mode = 2
+script = ExtResource("6_log")
+title = "Combat Log"
+
+[node name="CombatMenuPanel" type="PanelContainer" parent="Root/Layout"]
+custom_minimum_size = Vector2(0, 116)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleWoodFrame")
+
+[node name="Inner" type="VBoxContainer" parent="Root/Layout/CombatMenuPanel"]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="Title" type="Label" parent="Root/Layout/CombatMenuPanel/Inner"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.878, 0.714, 0.29, 1)
+theme_override_font_sizes/font_size = 20
+text = "Menu de Combate"
+horizontal_alignment = 1
+
+[node name="CombatMenu" type="HBoxContainer" parent="Root/Layout/CombatMenuPanel/Inner"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+script = ExtResource("7_menu")
+
+[node name="BottomBar" type="MarginContainer" parent="Root/Layout"]
+custom_minimum_size = Vector2(0, 44)
+layout_mode = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 2
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 14
+
+[node name="Logo" type="Label" parent="Root/Layout/BottomBar"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.878, 0.714, 0.29, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.85)
+theme_override_constants/shadow_offset_y = 3
+theme_override_constants/shadow_outline_size = 4
+theme_override_font_sizes/font_size = 34
+text = "Lendas das Brasis"
+horizontal_alignment = 2
+vertical_alignment = 2
