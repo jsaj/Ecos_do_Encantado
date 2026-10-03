@@ -1,0 +1,63 @@
+ECOS DO ENCANTADO
+INTEGRAÇÃO DA UI REFATORADA
+======================================================================
+
+Data: 2026-10-03 12:39:14
+Origem: C:\Users\Jjr_a\Downloads\files
+Destino: C:\Users\Jjr_a\Ecos do Encantado
+
+ARQUIVOS INSTALADOS
+----------------------------------------------------------------------
+[OK] main_battle_ui.gd -> scripts/ui/main_battle_ui.gd
+[OK] character_layer.gd -> scripts/ui/character_layer.gd
+[OK] status_layer.gd -> scripts/ui/status_layer.gd
+[OK] action_layer.gd -> scripts/ui/action_layer.gd
+[OK] information_layer.gd -> scripts/ui/information_layer.gd
+[OK] mock_data.gd -> scripts/ui/mock_data.gd
+[OK] battle_stage_art.gd -> scripts/ui/battle_stage_art.gd
+[OK] battle_theme.gd -> scripts/ui/battle_theme.gd
+[OK] combat_log.gd -> scripts/ui/combat_log.gd
+[OK] combat_menu.gd -> scripts/ui/combat_menu.gd
+[OK] portrait_slot.gd -> scripts/ui/portrait_slot.gd
+[OK] scene_backdrop.gd -> scripts/ui/scene_backdrop.gd
+[OK] skill_tree.gd -> scripts/ui/skill_tree.gd
+[OK] skill_tree_node.gd -> scripts/ui/skill_tree_node.gd
+[OK] status_bar.gd -> scripts/ui/status_bar.gd
+[OK] battle_ui_refactored.tscn -> scenes/battle/battle_ui_refactored.tscn
+[OK] battle.tscn -> scenes/battle/battle.tscn
+[OK] battle.gd -> scripts/battle/battle.gd
+[OK] battle_combatant.gd -> scripts/battle/battle_combatant.gd
+[OK] battle_skills.gd -> scripts/battle/battle_skills.gd
+[OK] constants.gd -> scripts/core/constants.gd
+[OK] game_manager.gd -> scripts/core/game_manager.gd
+[OK] game_state.gd -> scripts/core/game_state.gd
+[OK] scene_manager.gd -> scripts/core/scene_manager.gd
+[OK] character_base.gd -> scripts/character/character_base.gd
+[OK] player_character.gd -> scripts/character/player_character.gd
+[OK] dialogue_manager.gd -> scripts/narrative/dialogue_manager.gd
+[OK] dialogue_ui.gd -> scenes/ui/dialogue_ui.gd
+[OK] dialogue_ui.tscn -> scenes/ui/dialogue_ui.tscn
+[OK] item_data.gd -> scripts/resources/item_data.gd
+[OK] skill_data.gd -> scripts/resources/skill_data.gd
+[OK] boot.gd -> scenes/boot/boot.gd
+[OK] boot.tscn -> scenes/boot/boot.tscn
+[OK] main_menu.gd -> scenes/menu/main_menu.gd
+[OK] main_menu.tscn -> scenes/menu/main_menu.tscn
+[OK] world_map.gd -> scenes/world/world_map.gd
+[OK] world_map.tscn -> scenes/world/world_map.tscn
+[OK] main.tscn -> main.tscn
+[OK] battle_check.gd -> tests/battle_check.gd
+[OK] battle_test.tscn -> tests/battle_test.tscn
+[OK] screenshot.gd -> tests/screenshot.gd
+[OK] screenshot.tscn -> tests/screenshot.tscn
+
+ARQUIVOS IGNORADOS
+----------------------------------------------------------------------
+Nenhum arquivo ignorado.
+
+ARQUIVOS NÃO ENCONTRADOS
+----------------------------------------------------------------------
+Nenhum arquivo ausente.
+
+BACKUP:
+C:\Users\Jjr_a\Ecos do Encantado\_refactoring_backup\20261003_123913

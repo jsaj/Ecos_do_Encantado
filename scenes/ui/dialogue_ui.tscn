@@ -1,49 +1,11 @@
-[gd_scene load_steps=5 format=3 uid="uid://dialogue_ui_123"]
+[gd_scene format=3 uid="uid://npj4afaiyr76"]
 
-[ext_resource type="Script" path="res://scenes/ui/dialogue_ui.gd" id="1_abcd"]
+[ext_resource type="Script" uid="uid://b37rv8v4caiq5" path="res://scenes/ui/dialogue_ui.gd" id="1_abcd"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_Panel"]
-bg_color = Color(0.08, 0.08, 0.1, 0.95)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(0.4, 0.3, 0.15, 1)
-corner_radius_top_left = 6
-corner_radius_top_right = 6
-corner_radius_bottom_right = 6
-corner_radius_bottom_left = 6
-shadow_color = Color(0, 0, 0, 0.6)
-shadow_size = 8
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ChoiceNormal"]
-bg_color = Color(0.15, 0.15, 0.18, 1)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
-border_color = Color(0.3, 0.3, 0.3, 1)
-corner_radius_top_left = 4
-corner_radius_top_right = 4
-corner_radius_bottom_right = 4
-corner_radius_bottom_left = 4
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ChoiceHover"]
-bg_color = Color(0.25, 0.25, 0.3, 1)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
-border_color = Color(0.8, 0.7, 0.3, 1)
-corner_radius_top_left = 4
-corner_radius_top_right = 4
-corner_radius_bottom_right = 4
-corner_radius_bottom_left = 4
-
-[node name="DialogueUI" type="CanvasLayer"]
+[node name="DialogueUI" type="CanvasLayer" unique_id=410680184]
 script = ExtResource("1_abcd")
 
-[node name="Control" type="Control" parent="."]
+[node name="Control" type="Control" parent="." unique_id=1051243889]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -51,7 +13,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="ColorRect" type="ColorRect" parent="Control"]
+[node name="ColorRect" type="ColorRect" parent="Control" unique_id=34973889]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -60,7 +22,7 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 0.75)
 
-[node name="Margin" type="MarginContainer" parent="Control"]
+[node name="Margin" type="MarginContainer" parent="Control" unique_id=804778997]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -72,147 +34,139 @@ theme_override_constants/margin_top = 40
 theme_override_constants/margin_right = 40
 theme_override_constants/margin_bottom = 40
 
-[node name="Columns" type="HBoxContainer" parent="Control/Margin"]
+[node name="Columns" type="HBoxContainer" parent="Control/Margin" unique_id=734356401]
 layout_mode = 2
 theme_override_constants/separation = 30
 
-[node name="LeftCol" type="VBoxContainer" parent="Control/Margin/Columns"]
+[node name="LeftCol" type="VBoxContainer" parent="Control/Margin/Columns" unique_id=1097090360]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.6
 
-[node name="PortraitPanel" type="PanelContainer" parent="Control/Margin/Columns/LeftCol"]
+[node name="PortraitPanel" type="Control" parent="Control/Margin/Columns/LeftCol" unique_id=539960365]
 layout_mode = 2
 size_flags_vertical = 3
-theme_override_styles/panel = SubResource("StyleBoxFlat_Panel")
 
-[node name="Margin" type="MarginContainer" parent="Control/Margin/Columns/LeftCol/PortraitPanel"]
-layout_mode = 2
+[node name="Margin" type="MarginContainer" parent="Control/Margin/Columns/LeftCol/PortraitPanel" unique_id=1302774378]
+layout_mode = 0
 theme_override_constants/margin_left = 15
 theme_override_constants/margin_top = 15
 theme_override_constants/margin_right = 15
 theme_override_constants/margin_bottom = 15
 
-[node name="VBox" type="VBoxContainer" parent="Control/Margin/Columns/LeftCol/PortraitPanel/Margin"]
+[node name="VBox" type="VBoxContainer" parent="Control/Margin/Columns/LeftCol/PortraitPanel/Margin" unique_id=470330914]
 layout_mode = 2
 
-[node name="NameLabel" type="Label" parent="Control/Margin/Columns/LeftCol/PortraitPanel/Margin/VBox"]
+[node name="NameLabel" type="Label" parent="Control/Margin/Columns/LeftCol/PortraitPanel/Margin/VBox" unique_id=1914045429]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.9, 0.75, 0.3, 1)
 theme_override_font_sizes/font_size = 28
 text = "Personagem"
 horizontal_alignment = 1
 
-[node name="Portrait" type="TextureRect" parent="Control/Margin/Columns/LeftCol/PortraitPanel/Margin/VBox"]
+[node name="Portrait" type="TextureRect" parent="Control/Margin/Columns/LeftCol/PortraitPanel/Margin/VBox" unique_id=796818847]
 layout_mode = 2
 size_flags_vertical = 3
 expand_mode = 1
 stretch_mode = 5
 
-[node name="MoodLabel" type="Label" parent="Control/Margin/Columns/LeftCol/PortraitPanel/Margin/VBox"]
+[node name="MoodLabel" type="Label" parent="Control/Margin/Columns/LeftCol/PortraitPanel/Margin/VBox" unique_id=177921996]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.6, 0.8, 0.6, 1)
 theme_override_font_sizes/font_size = 18
 text = "[Mood: Neutro]"
 horizontal_alignment = 1
 
-[node name="CenterCol" type="VBoxContainer" parent="Control/Margin/Columns"]
+[node name="CenterCol" type="VBoxContainer" parent="Control/Margin/Columns" unique_id=334379782]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 1.2
 theme_override_constants/separation = 20
 
-[node name="TextPanel" type="PanelContainer" parent="Control/Margin/Columns/CenterCol"]
+[node name="TextPanel" type="Control" parent="Control/Margin/Columns/CenterCol" unique_id=1980837554]
 layout_mode = 2
 size_flags_vertical = 3
-theme_override_styles/panel = SubResource("StyleBoxFlat_Panel")
 
-[node name="Margin" type="MarginContainer" parent="Control/Margin/Columns/CenterCol/TextPanel"]
-layout_mode = 2
+[node name="Margin" type="MarginContainer" parent="Control/Margin/Columns/CenterCol/TextPanel" unique_id=806889656]
+layout_mode = 0
 theme_override_constants/margin_left = 25
 theme_override_constants/margin_top = 25
 theme_override_constants/margin_right = 25
 theme_override_constants/margin_bottom = 25
 
-[node name="TextLabel" type="RichTextLabel" parent="Control/Margin/Columns/CenterCol/TextPanel/Margin"]
+[node name="TextLabel" type="RichTextLabel" parent="Control/Margin/Columns/CenterCol/TextPanel/Margin" unique_id=1253234408]
 layout_mode = 2
-theme_override_font_sizes/normal_font_size = 24
-theme_override_font_sizes/italics_font_size = 24
-theme_override_font_sizes/bold_font_size = 24
 theme_override_colors/default_color = Color(0.95, 0.95, 0.95, 1)
+theme_override_font_sizes/normal_font_size = 24
+theme_override_font_sizes/bold_font_size = 24
+theme_override_font_sizes/italics_font_size = 24
 bbcode_enabled = true
 text = "Fala principal do personagem..."
 
-[node name="NextButton" type="Button" parent="Control/Margin/Columns/CenterCol/TextPanel"]
+[node name="NextButton" type="Button" parent="Control/Margin/Columns/CenterCol/TextPanel" unique_id=1638560081]
 custom_minimum_size = Vector2(150, 40)
-layout_mode = 2
+layout_mode = 0
 size_flags_horizontal = 8
 size_flags_vertical = 8
 theme_override_font_sizes/font_size = 18
 text = "Continuar >"
 
-[node name="ChoicesPanel" type="PanelContainer" parent="Control/Margin/Columns/CenterCol"]
+[node name="ChoicesPanel" type="Control" parent="Control/Margin/Columns/CenterCol" unique_id=364331061]
 layout_mode = 2
 size_flags_vertical = 3
-theme_override_styles/panel = SubResource("StyleBoxFlat_Panel")
 
-[node name="Margin" type="MarginContainer" parent="Control/Margin/Columns/CenterCol/ChoicesPanel"]
-layout_mode = 2
+[node name="Margin" type="MarginContainer" parent="Control/Margin/Columns/CenterCol/ChoicesPanel" unique_id=1443835064]
+layout_mode = 0
 theme_override_constants/margin_left = 20
 theme_override_constants/margin_top = 20
 theme_override_constants/margin_right = 20
 theme_override_constants/margin_bottom = 20
 
-[node name="Scroll" type="ScrollContainer" parent="Control/Margin/Columns/CenterCol/ChoicesPanel/Margin"]
+[node name="Scroll" type="ScrollContainer" parent="Control/Margin/Columns/CenterCol/ChoicesPanel/Margin" unique_id=979657856]
 layout_mode = 2
 
-[node name="ChoicesContainer" type="VBoxContainer" parent="Control/Margin/Columns/CenterCol/ChoicesPanel/Margin/Scroll"]
+[node name="ChoicesContainer" type="VBoxContainer" parent="Control/Margin/Columns/CenterCol/ChoicesPanel/Margin/Scroll" unique_id=652131375]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme_override_constants/separation = 12
 
-[node name="RightCol" type="VBoxContainer" parent="Control/Margin/Columns"]
+[node name="RightCol" type="VBoxContainer" parent="Control/Margin/Columns" unique_id=514958640]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.8
 
-[node name="HistoryPanel" type="PanelContainer" parent="Control/Margin/Columns/RightCol"]
+[node name="HistoryPanel" type="Control" parent="Control/Margin/Columns/RightCol" unique_id=1827843390]
 layout_mode = 2
 size_flags_vertical = 3
-theme_override_styles/panel = SubResource("StyleBoxFlat_Panel")
 
-[node name="Margin" type="MarginContainer" parent="Control/Margin/Columns/RightCol/HistoryPanel"]
-layout_mode = 2
+[node name="Margin" type="MarginContainer" parent="Control/Margin/Columns/RightCol/HistoryPanel" unique_id=245615564]
+layout_mode = 0
 theme_override_constants/margin_left = 15
 theme_override_constants/margin_top = 15
 theme_override_constants/margin_right = 15
 theme_override_constants/margin_bottom = 15
 
-[node name="VBox" type="VBoxContainer" parent="Control/Margin/Columns/RightCol/HistoryPanel/Margin"]
+[node name="VBox" type="VBoxContainer" parent="Control/Margin/Columns/RightCol/HistoryPanel/Margin" unique_id=2048502114]
 layout_mode = 2
 
-[node name="Header" type="Label" parent="Control/Margin/Columns/RightCol/HistoryPanel/Margin/VBox"]
+[node name="Header" type="Label" parent="Control/Margin/Columns/RightCol/HistoryPanel/Margin/VBox" unique_id=1320514893]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.5, 0.6, 0.7, 1)
 theme_override_font_sizes/font_size = 20
 text = "LOG E HISTÓRICO"
 horizontal_alignment = 1
 
-[node name="HSeparator" type="HSeparator" parent="Control/Margin/Columns/RightCol/HistoryPanel/Margin/VBox"]
-layout_mode = 2
-
-[node name="ScrollHistory" type="ScrollContainer" parent="Control/Margin/Columns/RightCol/HistoryPanel/Margin/VBox"]
+[node name="ScrollHistory" type="ScrollContainer" parent="Control/Margin/Columns/RightCol/HistoryPanel/Margin/VBox" unique_id=1765758863]
 layout_mode = 2
 size_flags_vertical = 3
 horizontal_scroll_mode = 0
 
-[node name="HistoryLabel" type="RichTextLabel" parent="Control/Margin/Columns/RightCol/HistoryPanel/Margin/VBox/ScrollHistory"]
+[node name="HistoryLabel" type="RichTextLabel" parent="Control/Margin/Columns/RightCol/HistoryPanel/Margin/VBox/ScrollHistory" unique_id=6994796]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-theme_override_font_sizes/normal_font_size = 16
 theme_override_colors/default_color = Color(0.7, 0.7, 0.75, 1)
+theme_override_font_sizes/normal_font_size = 16
 bbcode_enabled = true
-text = ""
 fit_content = true

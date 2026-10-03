@@ -16,7 +16,7 @@ compatibility/default_parent_skeleton_in_mesh_instance_3d=true
 
 config/name="Ecos do Encantado"
 config/description="RPG Narrativo baseado no Folclore Brasileiro"
-run/main_scene="res://main.tscn"
+run/main_scene="res://scenes/ui/main_exploration_ui.tscn"
 config/features=PackedStringArray("4.7")
 config/icon="res://assets/icons/icon.svg"
 
@@ -30,13 +30,12 @@ DialogueManager="*res://scripts/narrative/dialogue_manager.gd"
 
 [display]
 
-window/size/viewport_width=1080
-window/size/viewport_height=1920
-window/size/window_width_override=540
-window/size/window_height_override=960
+window/size/viewport_width=1365
+window/size/viewport_height=768
+window/size/window_width_override=1365
+window/size/window_height_override=768
 window/stretch/mode="canvas_items"
 window/stretch/aspect="expand"
-window/handheld/orientation=1
 
 [input]
 

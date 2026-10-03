@@ -22,7 +22,11 @@ func _init() -> void:
 	custom_minimum_size = Vector2(56, 56)
 
 func _ready() -> void:
-	add_theme_stylebox_override("panel", BattleTheme.slot_box(BattleTheme.WOOD_DARK, _accent, 3))
+	# Clean panel without borders
+	var panel_style := StyleBoxFlat.new()
+	panel_style.bg_color = BattleTheme.WOOD_DARK
+	panel_style.set_corner_radius_all(6)
+	add_theme_stylebox_override("panel", panel_style)
 
 	# Container de área única: o desenho e a textura dividem exatamente o
 	# mesmo retangulo, evitando que a silhueta fique maior que a moldura.
@@ -62,7 +66,11 @@ func _sync_children() -> void:
 func set_accent(color: Color) -> void:
 	_accent = color
 	if is_node_ready():
-		add_theme_stylebox_override("panel", BattleTheme.slot_box(BattleTheme.WOOD_DARK, color, 3))
+		# Clean panel without borders
+		var panel_style := StyleBoxFlat.new()
+		panel_style.bg_color = BattleTheme.WOOD_DARK
+		panel_style.set_corner_radius_all(6)
+		add_theme_stylebox_override("panel", panel_style)
 		_sync_children()
 
 func set_portrait_size(pixels: int) -> void:
@@ -110,4 +118,4 @@ func _draw_placeholder() -> void:
 	])
 	_draw_rect.draw_colored_polygon(body, accent)
 
-	_draw_rect.draw_rect(r, _accent, false, 2.0)
+	# Removed border line

@@ -17,7 +17,10 @@ func _init() -> void:
 	horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
 
 func _ready() -> void:
-	add_theme_stylebox_override("panel", BattleTheme.panel(Color(0.05, 0.04, 0.03, 0.88), BattleTheme.BORDER_METAL_DIM, 2))
+	# Clean panel without borders
+	var panel_style := StyleBoxFlat.new()
+	panel_style.bg_color = Color(0.05, 0.04, 0.03, 0.88)
+	add_theme_stylebox_override("panel", panel_style)
 
 	var box := VBoxContainer.new()
 	box.size_flags_horizontal = Control.SIZE_EXPAND_FILL
@@ -30,9 +33,6 @@ func _ready() -> void:
 	_title_label.add_theme_font_size_override("font_size", 20)
 	_title_label.add_theme_color_override("font_color", BattleTheme.GOLD)
 	box.add_child(_title_label)
-
-	var separator := HSeparator.new()
-	box.add_child(separator)
 
 	_list = VBoxContainer.new()
 	_list.size_flags_horizontal = Control.SIZE_EXPAND_FILL

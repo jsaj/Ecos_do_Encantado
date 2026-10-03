@@ -71,13 +71,11 @@ func _build_turn_order() -> void:
 	for i in 4:
 		var marker := PanelContainer.new()
 		marker.custom_minimum_size = Vector2(44, 44)
-		marker.add_theme_stylebox_override(
-			"panel",
-			BattleTheme.slot_box(
-				BattleTheme.WOOD_LIGHT if i == 0 else BattleTheme.WOOD_MID,
-				BattleTheme.GOLD if i == 0 else BattleTheme.BORDER_METAL_DIM
-			)
-		)
+		# Clean panel without borders
+		var panel_style := StyleBoxFlat.new()
+		panel_style.bg_color = BattleTheme.WOOD_LIGHT if i == 0 else BattleTheme.WOOD_MID
+		panel_style.set_corner_radius_all(6)
+		marker.add_theme_stylebox_override("panel", panel_style)
 		var label := Label.new()
 		label.text = "▼" if i == 0 else "·"
 		label.add_theme_font_size_override("font_size", 18)
@@ -95,7 +93,11 @@ func _build_equipped_slots() -> void:
 
 func _make_item_slot(item: Dictionary) -> Control:
 	var panel := PanelContainer.new()
-	panel.add_theme_stylebox_override("panel", BattleTheme.slot_box(BattleTheme.WOOD_MID, BattleTheme.BORDER_METAL_DIM))
+	# Clean panel without borders
+	var panel_style := StyleBoxFlat.new()
+	panel_style.bg_color = BattleTheme.WOOD_MID
+	panel_style.set_corner_radius_all(6)
+	panel.add_theme_stylebox_override("panel", panel_style)
 	panel.custom_minimum_size = Vector2(0, 74)
 	panel.clip_contents = true
 
@@ -105,7 +107,11 @@ func _make_item_slot(item: Dictionary) -> Control:
 
 	var icon_frame := PanelContainer.new()
 	icon_frame.custom_minimum_size = Vector2(44, 44)
-	icon_frame.add_theme_stylebox_override("panel", BattleTheme.slot_box(BattleTheme.PARCHMENT_SOFT, BattleTheme.BORDER_METAL_DIM))
+	# Clean icon frame without borders
+	var icon_frame_style := StyleBoxFlat.new()
+	icon_frame_style.bg_color = BattleTheme.PARCHMENT_SOFT
+	icon_frame_style.set_corner_radius_all(4)
+	icon_frame.add_theme_stylebox_override("panel", icon_frame_style)
 	box.add_child(icon_frame)
 
 	var icon := TextureRect.new()
@@ -168,13 +174,11 @@ func _make_effect_row(effect: Dictionary) -> Control:
 	var kind := str(effect.get("kind", "buff"))
 	var icon_frame := PanelContainer.new()
 	icon_frame.custom_minimum_size = Vector2(40, 40)
-	icon_frame.add_theme_stylebox_override(
-		"panel",
-		BattleTheme.slot_box(
-			BattleTheme.GREEN_PANEL if kind == "buff" else BattleTheme.PARCHMENT_SOFT,
-			BattleTheme.GREEN_SORCERY if kind == "buff" else BattleTheme.DANGER
-		)
-	)
+	# Clean icon frame without borders
+	var icon_frame_style := StyleBoxFlat.new()
+	icon_frame_style.bg_color = BattleTheme.GREEN_PANEL if kind == "buff" else BattleTheme.PARCHMENT_SOFT
+	icon_frame_style.set_corner_radius_all(4)
+	icon_frame.add_theme_stylebox_override("panel", icon_frame_style)
 	row.add_child(icon_frame)
 
 	var icon := TextureRect.new()

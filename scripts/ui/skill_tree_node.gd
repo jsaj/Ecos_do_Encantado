@@ -1,7 +1,7 @@
 class_name SkillTreeNode
 extends PanelContainer
 
-## Nó individual da árvore de habilidades: moldura quadrada de madeira,
+## Nó individual da árvore de habilidades: moldura quadrada de madeira limpa,
 ## ícone (placeholder quando a arte final não existe), nome e os números
 ## de dano / custo de mana / crítico.
 
@@ -25,7 +25,11 @@ func _init() -> void:
 	mouse_filter = Control.MOUSE_FILTER_PASS
 
 func _ready() -> void:
-	add_theme_stylebox_override("panel", BattleTheme.slot_box(BattleTheme.WOOD_MID, BattleTheme.BORDER_METAL_DIM))
+	# Clean panel without borders
+	var panel_style := StyleBoxFlat.new()
+	panel_style.bg_color = BattleTheme.WOOD_MID
+	panel_style.set_corner_radius_all(6)
+	add_theme_stylebox_override("panel", panel_style)
 
 	var box := HBoxContainer.new()
 	box.add_theme_constant_override("separation", 10)
@@ -35,7 +39,11 @@ func _ready() -> void:
 	var icon_frame := PanelContainer.new()
 	icon_frame.custom_minimum_size = ICON_SIZE
 	icon_frame.size_flags_vertical = Control.SIZE_SHRINK_CENTER
-	icon_frame.add_theme_stylebox_override("panel", BattleTheme.slot_box(BattleTheme.PARCHMENT_SOFT, BattleTheme.BORDER_METAL_DIM))
+	# Clean icon frame without borders
+	var icon_frame_style := StyleBoxFlat.new()
+	icon_frame_style.bg_color = BattleTheme.PARCHMENT_SOFT
+	icon_frame_style.set_corner_radius_all(4)
+	icon_frame.add_theme_stylebox_override("panel", icon_frame_style)
 	icon_frame.mouse_filter = Control.MOUSE_FILTER_PASS
 	box.add_child(icon_frame)
 
@@ -115,10 +123,8 @@ func set_affordable(value: bool) -> void:
 	modulate = Color(1, 1, 1, 1) if value else Color(0.6, 0.55, 0.5, 0.85)
 
 func set_selected(value: bool) -> void:
-	add_theme_stylebox_override(
-		"panel",
-		BattleTheme.slot_box(
-			BattleTheme.WOOD_LIGHT if value else BattleTheme.WOOD_MID,
-			BattleTheme.GOLD if value else BattleTheme.BORDER_METAL_DIM
-		)
-	)
+	# Clean panel without borders
+	var panel_style := StyleBoxFlat.new()
+	panel_style.bg_color = BattleTheme.WOOD_LIGHT if value else BattleTheme.WOOD_MID
+	panel_style.set_corner_radius_all(6)
+	add_theme_stylebox_override("panel", panel_style)

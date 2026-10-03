@@ -1,0 +1,40 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/ui/main_exploration_ui.gd" id="1_ui"]
+
+[node name="MainExplorationUI" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ui")
+initial_data = {
+"background_path": "res://assets/backgrounds/bg_front_game.png",
+"portrait_left_path": "res://assets/characters/luana.png",
+"portrait_frame_path": "res://assets/ui/ui_moldura_char.png",
+"speaker": "Luana",
+"settings_frame_path": "",
+"settings_icon_path": "res://assets/ui/icon_config_button.png",
+"information_frame_path": "res://assets/ui/ui_menu.png",
+"menu_active_path": "res://assets/ui/icon_menu_active.png",
+"menu_inactive_path": "res://assets/ui/icon_menu_inactive.png",
+"actions": [{
+"action_id": "items",
+"label": "Itens",
+"frame_path": "res://assets/ui/option_moldure.png"
+}, {
+"action_id": "inventory",
+"label": "Inventário",
+"frame_path": "res://assets/ui/option_moldure.png"
+}, {
+"action_id": "look",
+"label": "Observar",
+"frame_path": "res://assets/ui/option_moldure.png"
+}, {
+"action_id": "navigate",
+"label": "Navegar",
+"frame_path": "res://assets/ui/option_moldure.png"
+}]
+}
