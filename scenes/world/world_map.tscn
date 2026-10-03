@@ -1,0 +1,34 @@
+[gd_scene load_steps=2 format=3 uid="uid://bk3w4j2l0cd5f"]
+
+[ext_resource type="Script" path="res://scenes/world/world_map.gd" id="1_abc12"]
+
+[node name="WorldMap" type="Control"]
+layout_mode = 3
+anchors_left = 0.0
+anchors_top = 0.0
+anchors_right = 1.0
+anchors_bottom = 1.0
+script = ExtResource("1_abc12")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_left = 0.0
+anchors_top = 0.0
+anchors_right = 1.0
+anchors_bottom = 1.0
+color = Color(0.2, 0.25, 0.2, 1)
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 1
+anchors_left = 0.5
+anchors_top = 0.5
+anchors_right = 0.5
+anchors_bottom = 0.5
+offset_left = -200.0
+offset_top = -50.0
+offset_right = 200.0
+offset_bottom = 50.0
+text = "MAPA DO MUNDO
+(Implementação em FASE 12)"
+horizontal_alignment = 1
+vertical_alignment = 1
