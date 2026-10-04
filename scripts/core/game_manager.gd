@@ -13,11 +13,15 @@ func _ready() -> void:
 	set_process_unhandled_input(true)
 
 func _unhandled_input(event: InputEvent) -> void:
-	if event.is_action_pressed("cancel"):
-		if not is_paused:
-			pause_game()
-		else:
-			resume_game()
+	if not event.is_action_pressed("cancel"):
+		return
+	var current := SceneManager.get_current_scene()
+	if current is MainExplorationUI or current is XilogravuraReliquary:
+		return
+	if not is_paused:
+		pause_game()
+	else:
+		resume_game()
 
 func pause_game() -> void:
 	if not is_paused:

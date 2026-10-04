@@ -24,10 +24,10 @@ const PORTRAIT_OVERFLOW_BOTTOM := 70.0
 
 ## Identificadores estruturais das ações. Rótulos e imagens chegam por
 ## injeção (skill §2.4); sem dados, o contêiner fica vazio.
-const ACTION_IDS: Array[String] = ["items", "inventory", "look", "navigate"]
+const ACTION_IDS: Array[String] = []
 
 ## Nomes das abas do painel de informações (estrutura de interface).
-const TAB_NAMES: Array[String] = ["Mapa", "Atributos", "Missões", "Dicas"]
+const TAB_NAMES: Array[String] = []
 
 ## Duração do crossfade entre a arte inativa e a ativa dos menus.
 const MENU_FADE_DURATION := 0.22
@@ -79,11 +79,19 @@ var _tab_content: Dictionary = {}
 
 
 func _ready() -> void:
+	set_process_unhandled_input(true)
 	_build_interface()
 	get_viewport().size_changed.connect(_layout_for_viewport)
 	_layout_for_viewport()
 	if not initial_data.is_empty():
 		inject_data(initial_data)
+
+
+func _unhandled_input(event: InputEvent) -> void:
+	if event.is_action_pressed("cancel"):
+		if not SceneManager.is_loading:
+			_open_xilogravura_reliquary()
+			get_viewport().set_input_as_handled()
 
 
 func inject_data(data: Dictionary) -> void:
@@ -199,7 +207,7 @@ func _build_interface() -> void:
 	# One shared background container spans scene, dialogue, and action regions.
 	_left_area = Control.new()
 	_left_area.name = "SharedStageBackground"
-	_left_area.anchor_right = 0.69
+	_left_area.anchor_right = 1.0
 	_left_area.anchor_bottom = 1.0
 	_left_area.clip_contents = true
 	add_child(_left_area)
@@ -208,7 +216,7 @@ func _build_interface() -> void:
 	_artwork.name = "SharedBackgroundArtwork"
 	_artwork.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	_artwork.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
-	_artwork.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_COVERED
+	_artwork.stretch_mode = TextureRect.STRETCH_SCALE
 	_artwork.texture_filter = CanvasItem.TEXTURE_FILTER_LINEAR_WITH_MIPMAPS
 	_artwork.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	_left_area.add_child(_artwork)
@@ -217,11 +225,11 @@ func _build_interface() -> void:
 	# A moldura e o ícone chegam por "settings_frame_path" / "settings_icon_path".
 	var settings_slot := Control.new()
 	settings_slot.name = "SettingsSlot"
-	settings_slot.anchor_left = 0.018
+	settings_slot.anchor_left = 0.944
 	settings_slot.anchor_top = 0.018
 	# Largura próxima da altura para a arte 440x440 não ficar com área
 	# de clique morta ao lado (o ícone usa KEEP_ASPECT_CENTERED).
-	settings_slot.anchor_right = 0.056
+	settings_slot.anchor_right = 0.982
 	settings_slot.anchor_bottom = 0.085
 	settings_slot.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	_left_area.add_child(settings_slot)
@@ -246,7 +254,7 @@ func _build_interface() -> void:
 	_settings_icon.name = "Icon"
 	_settings_icon.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	_settings_icon.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
-	_settings_icon.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+	_settings_icon.stretch_mode = TextureRect.STRETCH_SCALE
 	_settings_icon.texture_filter = CanvasItem.TEXTURE_FILTER_LINEAR_WITH_MIPMAPS
 	_settings_icon.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	# O giro acontece em torno do centro da própria imagem: sem o pivot
@@ -265,8 +273,6 @@ func _build_interface() -> void:
 	_bind_option_feedback(settings_visual, settings)
 
 	_build_dialogue_region()
-	_build_action_bar()
-	_build_information_panel()
 
 
 func _build_dialogue_region() -> void:
@@ -373,14 +379,7 @@ func _portrait_card(node_name: String, caption: String, right_side: bool) -> Con
 	# transbordando para cima e para baixo (cabeça acima da moldura).
 	var image := TextureRect.new()
 	image.name = "Portrait"
-	image.anchor_left = 0.5
-	image.anchor_right = 0.5
-	image.anchor_top = 0.0
-	image.anchor_bottom = 1.0
-	image.offset_left = -PORTRAIT_OVERFLOW_X
-	image.offset_right = PORTRAIT_OVERFLOW_X
-	image.offset_top = -PORTRAIT_OVERFLOW_TOP
-	image.offset_bottom = PORTRAIT_OVERFLOW_BOTTOM
+	image.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	image.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 	image.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
 	image.texture_filter = CanvasItem.TEXTURE_FILTER_LINEAR_WITH_MIPMAPS
@@ -418,13 +417,13 @@ func _portrait_card(node_name: String, caption: String, right_side: bool) -> Con
 	footer.add_child(plate)
 	_portrait_plates[side_key] = plate
 
-	var name := _label(caption, 15, TEXT, HORIZONTAL_ALIGNMENT_CENTER)
-	name.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-	footer.add_child(name)
+	var name_label := _label(caption, 15, TEXT, HORIZONTAL_ALIGNMENT_CENTER)
+	name_label.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	footer.add_child(name_label)
 	if right_side:
-		_right_portrait_name = name
+		_right_portrait_name = name_label
 	else:
-		_left_portrait_name = name
+		_left_portrait_name = name_label
 	return card
 
 
@@ -489,7 +488,7 @@ func _build_action_bar() -> void:
 		icon.offset_right = 26.0
 		icon.grow_horizontal = Control.GROW_DIRECTION_BOTH
 		icon.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
-		icon.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+		icon.stretch_mode = TextureRect.STRETCH_SCALE
 		icon.texture_filter = CanvasItem.TEXTURE_FILTER_LINEAR_WITH_MIPMAPS
 		icon.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		visual.add_child(icon)
@@ -565,7 +564,7 @@ func _reset_option(visual: Control) -> void:
 ## o tween anterior é morto antes de criar o próximo, senão tweens
 ## concorrentes disputam as mesmas propriedades e o estado "gruda".
 func _animate_option(visual: Control, tint: Color, target_scale: Vector2, duration: float) -> void:
-	var previous: Variant = visual.get_meta("option_tween", null)
+	var previous: Variant = visual.get_meta("option_tween") if visual.has_meta("option_tween") else null
 	if previous is Tween:
 		var stale := previous as Tween
 		if stale.is_valid():
@@ -741,7 +740,7 @@ func _animate_menu_frames(tab_name: String, is_active: bool) -> void:
 
 	# Mata o crossfade anterior desta aba para não haver dois em curso.
 	for node in [active_frame, inactive_frame]:
-		var previous: Variant = node.get_meta("menu_tween", null)
+		var previous: Variant = node.get_meta("menu_tween") if node.has_meta("menu_tween") else null
 		if previous is Tween:
 			var stale := previous as Tween
 			if stale.is_valid():
@@ -812,7 +811,12 @@ func _forward_action(action_type: String) -> void:
 ## então o botão não se move em X nem em Y.
 func _on_settings_pressed() -> void:
 	_spin_settings_icon()
+	_open_xilogravura_reliquary()
 	action_requested.emit("settings")
+
+
+func _open_xilogravura_reliquary() -> void:
+	SceneManager.load_scene_with_return(Constants.SCENE_XILOGRAVURA_RELIQUARY)
 
 
 func _spin_settings_icon() -> void:
@@ -820,7 +824,7 @@ func _spin_settings_icon() -> void:
 		return
 
 	# Só um giro por vez; um novo clique reinicia o giro em curso.
-	var previous: Variant = _settings_icon.get_meta("spin_tween", null)
+	var previous: Variant = _settings_icon.get_meta("spin_tween") if _settings_icon.has_meta("spin_tween") else null
 	if previous is Tween:
 		var stale := previous as Tween
 		if stale.is_valid():
@@ -840,20 +844,8 @@ func _spin_settings_icon() -> void:
 func _layout_for_viewport() -> void:
 	if _left_area == null:
 		return
-	var viewport_size := get_viewport_rect().size
-	var narrow := viewport_size.x < 900.0
-	# O painel encosta no palco: sem folga, para não aparecer a cor de
-	# limpeza cinza do Godot entre as duas áreas (item 4).
-	_left_area.anchor_right = 1.0 if narrow else 0.69
-	var panel: Control = get_node("InformationPanel")
-	panel.anchor_left = 0.0 if narrow else 0.69
-	panel.anchor_top = 0.68 if narrow else 0.0
-	panel.anchor_right = 1.0
-	panel.anchor_bottom = 1.0
-	if narrow:
-		_left_area.anchor_bottom = 0.68
-	else:
-		_left_area.anchor_bottom = 1.0
+	_left_area.anchor_right = 1.0
+	_left_area.anchor_bottom = 1.0
 
 
 func _panel(node_name: String, color: Color, alpha: float) -> Panel:
@@ -873,10 +865,10 @@ func _panel(node_name: String, color: Color, alpha: float) -> Panel:
 	return panel
 
 
-func _label(value: String, size: int, color: Color, alignment: HorizontalAlignment = HORIZONTAL_ALIGNMENT_LEFT) -> Label:
+func _label(value: String, font_size: int, color: Color, alignment: HorizontalAlignment = HORIZONTAL_ALIGNMENT_LEFT) -> Label:
 	var label := Label.new()
 	label.text = value
-	label.add_theme_font_size_override("font_size", size)
+	label.add_theme_font_size_override("font_size", font_size)
 	label.add_theme_color_override("font_color", color)
 	label.horizontal_alignment = alignment
 	label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
@@ -884,12 +876,12 @@ func _label(value: String, size: int, color: Color, alignment: HorizontalAlignme
 	return label
 
 
-func _button(value: String, size: int) -> Button:
+func _button(value: String, font_size: int) -> Button:
 	## Botão neutro, sem bordas. Usado apenas por controles que ainda não
 	## migraram para o padrão slot -> visual -> Button (imagem injetada).
 	var button := Button.new()
 	button.text = value
-	button.add_theme_font_size_override("font_size", size)
+	button.add_theme_font_size_override("font_size", font_size)
 	button.add_theme_color_override("font_color", TEXT)
 	button.add_theme_color_override("font_hover_color", Color("f0d69d"))
 	var normal := StyleBoxFlat.new()

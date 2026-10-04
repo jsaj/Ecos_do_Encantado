@@ -11,6 +11,7 @@ const SCENE_DIALOGUE = "res://scenes/dialogue/dialogue.tscn"
 const SCENE_BATTLE = "res://scenes/battle/battle.tscn"
 const SCENE_INVENTORY = "res://scenes/inventory/inventory.tscn"
 const SCENE_CHARACTER = "res://scenes/character/character.tscn"
+const SCENE_XILOGRAVURA_RELIQUARY = "res://scenes/ui/xilogravura_reliquary.tscn"
 const SCENE_GAME_OVER = "res://scenes/game_over/game_over.tscn"
 const SCENE_VICTORY = "res://scenes/victory/victory.tscn"
 

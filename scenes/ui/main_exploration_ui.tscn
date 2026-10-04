@@ -17,24 +17,8 @@ initial_data = {
 "speaker": "Luana",
 "settings_frame_path": "",
 "settings_icon_path": "res://assets/ui/icon_config_button.png",
-"information_frame_path": "res://assets/ui/ui_menu.png",
-"menu_active_path": "res://assets/ui/icon_menu_active.png",
-"menu_inactive_path": "res://assets/ui/icon_menu_inactive.png",
-"actions": [{
-"action_id": "items",
-"label": "Itens",
-"frame_path": "res://assets/ui/option_moldure.png"
-}, {
-"action_id": "inventory",
-"label": "Inventário",
-"frame_path": "res://assets/ui/option_moldure.png"
-}, {
-"action_id": "look",
-"label": "Observar",
-"frame_path": "res://assets/ui/option_moldure.png"
-}, {
-"action_id": "navigate",
-"label": "Navegar",
-"frame_path": "res://assets/ui/option_moldure.png"
-}]
+"information_frame_path": "",
+"menu_active_path": "",
+"menu_inactive_path": "",
+"actions": []
 }

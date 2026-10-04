@@ -8,6 +8,7 @@ signal scene_loading_finished
 
 var current_scene: Node = null
 var is_loading: bool = false
+var return_scene_path: String = ""
 
 func _ready() -> void:
 	await get_tree().process_frame
@@ -64,3 +65,14 @@ func reload_current_scene() -> void:
 		get_tree().reload_current_scene()
 	else:
 		load_scene(scene_path)
+
+func load_scene_with_return(scene_path: String) -> void:
+	var scene := get_current_scene()
+	if scene != null and not scene.scene_file_path.is_empty():
+		return_scene_path = scene.scene_file_path
+	load_scene(scene_path)
+
+func return_to_previous_scene(fallback_path: String) -> void:
+	var target := return_scene_path if not return_scene_path.is_empty() else fallback_path
+	return_scene_path = ""
+	load_scene(target)
