@@ -1,0 +1,13 @@
+using System; using UnityEngine;
+public class CombatManager : MonoBehaviour
+{
+    public CharacterData playerData; public EnemyData enemyData; public TurnSystem turns;
+    public BattleCombatant Player{get;private set;} public BattleCombatant Enemy{get;private set;}
+    public event Action<BattleCombatant,BattleCombatant> CombatantsChanged; public event Action<string> LogMessage;
+    void Start(){Begin(playerData,enemyData);}
+    public void Begin(CharacterData player,EnemyData enemy){playerData=player;enemyData=enemy;if(player==null||enemy==null)return;Player=new BattleCombatant{displayName=player.displayName,maxHp=player.maxHp,hp=player.maxHp,maxEnergy=player.maxEnergy,energy=player.maxEnergy,attackPower=player.attackPower,defense=player.defense,isPlayer=true,portrait=player.portrait,body=player.body};Enemy=new BattleCombatant{displayName=enemy.displayName,maxHp=enemy.maxHp,hp=enemy.maxHp,maxEnergy=enemy.maxEnergy,energy=enemy.maxEnergy,attackPower=enemy.attackPower,defense=enemy.defense,portrait=enemy.portrait,body=enemy.body};if(turns!=null)turns.Begin();CombatantsChanged?.Invoke(Player,Enemy);}
+    public bool PlayerAttack(){if(Player==null||Enemy==null||turns==null||turns.State!=CombatState.PlayerTurn)return false;var d=Enemy.ReceiveDamage(Player.attackPower);LogMessage?.Invoke(Player.displayName+" atacou "+Enemy.displayName+" (Dano: "+d+")");CombatantsChanged?.Invoke(Player,Enemy);if(!Enemy.IsAlive()){Finish(true);return true;}turns.EndPlayerTurn();EnemyTurn();return true;}
+    public bool UseSkill(SkillData skill){if(skill==null||Player==null||Enemy==null||turns.State!=CombatState.PlayerTurn)return false;if(!Player.SpendEnergy(skill.energyCost))return false;var d=skill.damageBase>0?Enemy.ReceiveDamage(skill.damageBase):0;LogMessage?.Invoke(Player.displayName+" usou "+skill.name+" (Dano: "+d+")");CombatantsChanged?.Invoke(Player,Enemy);if(!Enemy.IsAlive())Finish(true);else{turns.EndPlayerTurn();EnemyTurn();}return true;}
+    void EnemyTurn(){if(turns.State!=CombatState.EnemyTurn)return;var d=Player.ReceiveDamage(Enemy.attackPower);LogMessage?.Invoke(Enemy.displayName+" atacou "+Player.displayName+" (Dano: "+d+")");CombatantsChanged?.Invoke(Player,Enemy);if(!Player.IsAlive())Finish(false);else turns.EndEnemyTurn();}
+    void Finish(bool won){turns.SetResult(won);if(GameManager.Instance!=null){GameManager.Instance.State.InCombat=false;GameManager.Instance.State.CurrentEnemy=Enemy?.displayName??"";if(won)GameManager.Instance.State.AddXp(enemyData?.experienceReward??0);}}
+}

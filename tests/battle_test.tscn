@@ -1,6 +1,0 @@
-[gd_scene format=3 uid="uid://bbiljuv2pbo0t"]
-
-[ext_resource type="Script" uid="uid://bb7qriedyfdv1" path="res://tests/battle_check.gd" id="1_check"]
-
-[node name="BattleTest" type="Node" unique_id=471904091]
-script = ExtResource("1_check")
